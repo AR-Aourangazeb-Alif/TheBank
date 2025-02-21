@@ -10,6 +10,7 @@ class customError(Exception):
 
 class BankAccount:
     all = []
+    account_count = 0
 
     def __init__(self, owner:str, amount:float, id=0):
         self.owner = owner
@@ -34,6 +35,7 @@ class BankAccount:
 
 
         BankAccount.all.append(self)
+        BankAccount.account_count += 1
 
     
         

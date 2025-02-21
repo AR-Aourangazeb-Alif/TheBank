@@ -10,5 +10,6 @@ from bank_account import *
 BankAccount.instantiate_from_csv()
 
 
-
 BankAccount.listAccounts()
+
+print(BankAccount.account_count)
