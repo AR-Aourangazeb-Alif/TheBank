@@ -1,7 +1,6 @@
 from random import randint
 
 
-
 class customError(Exception):
     pass
 
@@ -15,6 +14,12 @@ class BankAccount:
     def __init__(self, owner:str, amount:float, id=0):
         self.owner = owner
         self.balance = amount
+        self.account_type = (
+            "Checking Account" if self.__class__.__name__ == "CheckingAccount" else 
+            "Savings Account" if self.__class__.__name__ == "SavingsAccount" else 
+            "Students Account" if self.__class__.__name__ == "StudentsAccount" else
+            "CD" if self.__class__.__name__ == "CD" else "Bank Account"
+        )
 
         
         if id==0:
@@ -28,7 +33,7 @@ class BankAccount:
                 if id_doesn_exist:
                     self.id = id
                     with open("accounts.csv", "a") as f:
-                        f.write(f"{self.owner},{self.id},{self.balance}\n")
+                        f.write(f"{self.owner},{self.id},{self.balance},{self.account_type}\n")
                     break
         else:
             self.id = id
@@ -67,9 +72,9 @@ class BankAccount:
     ## List accounts
     @classmethod
     def listAccounts(cls):
-        print("   Owner             ID              Balance\n")
+        print("   Owner             ID              Balance              Account Type\n")
         for i in cls.all:
-            print(f"   {i.owner}       {i.id}       {i.balance}\n")
+            print(f"   {i.owner}       {i.id}       {i.balance}       {i.account_type}\n")      
 
 
 
@@ -98,9 +103,9 @@ class BankAccount:
 
             account -= amount
 
-            a = "owner,id,balance\n"
+            a = "owner,id,balance,account_type\n"
             for i in cls.all:
-                a += f"{i.owner},{i.id},{i.balance}\n"
+                a += f"{i.owner},{i.id},{i.balance},{i.account_type}\n"
             with open("accounts.csv", "w") as f:
                 f.write(a)
 
@@ -125,9 +130,9 @@ class BankAccount:
             frm.balance -= amount
             to.balance += amount
 
-            a = "owner,id,balance\n"
+            a = "owner,id,balance,account_type\n"
             for i in cls.all:
-                a += f"{i.owner},{i.id},{i.balance}\n"
+                a += f"{i.owner},{i.id},{i.balance},{i.account_type}\n"
             with open("accounts.csv", "w") as f:
                 f.write(a)
 
@@ -145,9 +150,9 @@ class BankAccount:
         try:
             account = cls.getAccount(id)
             account.balance += amount
-            a = "owner,id,balance\n"
+            a = "owner,id,balance,account_type\n"
             for i in cls.all:
-                a += f"{i.owner},{i.id},{i.balance}\n"
+                a += f"{i.owner},{i.id},{i.balance},{i.account_type}\n"
             with open("accounts.csv", "w") as f:
                 f.write(a)
 
@@ -159,20 +164,5 @@ class BankAccount:
 
 
         
-    ## instantiating data from csv
-    @classmethod
-    def instantiate_from_csv(cls):
-        with open("accounts.csv", "r") as f:
-            data = f.readlines()
-
-        if len(data)>1:
-            for i in range(1,len(data)):
-                a = data[i].replace("\n","").split(",")
-                cls(owner=(a[0].strip()), amount=(float(a[2].strip())), id=(int(a[1].strip())))
-
-
-
-
-
     def __repr__(self):
-        return f"{self.__class__.__name__}(Owner:{self.owner}, Balance:{self.balance}, ID:{self.id})"
+        return f"{self.__class__.__name__}(Owner:'{self.owner}', Balance:{self.balance}, ID:{self.id})"

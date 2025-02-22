@@ -1,3 +1,5 @@
-owner,id,balance
-Alif,115210720442978,245000.0
-Rahma,115528024036162,185000.0
+owner,id,balance,account_type
+a,115703559819127,100,Checking Account
+b,115499408216687,200,Savings Account
+c,115698550694608,500,Students Account
+mob,115167240236172,400,CD

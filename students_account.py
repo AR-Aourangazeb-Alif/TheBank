@@ -1,4 +1,4 @@
 from bank_account import BankAccount
 
-class CheckingAccount(BankAccount):
+class StudentsAccount(BankAccount):
     pass

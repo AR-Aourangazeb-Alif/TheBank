@@ -31,14 +31,13 @@
     -  Automatic renewal option 
 
 """
-from datetime import datetime
 
 from bank_account import BankAccount
-from checking_account import CheckingAccount
+from instantiate_csv import instantiate_from_csv
 
-BankAccount.instantiate_from_csv()
+instantiate_from_csv()
 
 
 BankAccount.listAccounts()
 
-print(BankAccount.account_count)
+print(BankAccount.all)
