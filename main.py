@@ -11,9 +11,7 @@
 
     -  Unlimited withdrawals/transactions
 
-    -  Check-writing capabilities
-
-    -  Debit card access
+    -  Basically a normal bank account
 
 3. Students account:
     -  Lower minimum balance
@@ -35,7 +33,8 @@
 """
 from datetime import datetime
 
-from bank_account import *
+from bank_account import BankAccount
+from checking_account import CheckingAccount
 
 BankAccount.instantiate_from_csv()
 
