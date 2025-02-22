@@ -83,6 +83,31 @@ class BankAccount:
             return f"Account: {a.id}\nBalance: ${a.balance}"
         except customError as e:
             return f"Couldn't get data: {e}"
+        
+
+
+
+
+    ## Witdraw
+    @classmethod
+    def witdraw(cls, id, amount):
+        try:
+            account = cls.getAccount(id)
+
+            cls.validateTransaction(obj=id, amount=amount)
+
+            account -= amount
+
+            a = "owner,id,balance\n"
+            for i in cls.all:
+                a += f"{i.owner},{i.id},{i.balance}\n"
+            with open("accounts.csv", "w") as f:
+                f.write(a)
+
+            return "Witdrawal complete"
+        
+        except customError as e:
+            return f"Witdrawal failed: {e}"
 
 
 
